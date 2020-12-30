@@ -119,7 +119,13 @@ public class Dispatcher implements Filter {
 					try {
 						method.invoke(instance, request.getParameter(key));	//String
 					} catch (Exception e) {
-						e.printStackTrace();
+						try {
+							int value = Integer.parseInt(request.getParameter(key));
+							method.invoke(instance, value);	//int
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
+						System.out.println("신경쓸 필요없는 별거 아닌 int 파싱 문제");
 					}
 				}
 			}
